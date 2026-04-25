@@ -3,42 +3,10 @@ import React from "react";
 export default class MovieCard extends React.Component {
 
     
-    addstars=()=>{
-        if(this.state.stars >= 5){
-            return;
-        }
-        this.setState({
-            stars : this.state.stars + 0.5
-        })
-
-            /*this.setState((prev) => {
-                return{
-                    stars : prev.stars +0.5
-                }
-            })*/      
-        
-    }
-     decstars=()=>{
-
-        if(this.state.stars <= 0){
-            return;
-        }
-        this.setState({
-            stars : this.state.stars - 0.5
-        })  
-    }
-    handleFav=()=>{
-        this.setState({
-            fav: !this.state.fav
-        })
-    }
-    handlecart=()=>{
-        this.setState({
-            isinCart: !this.state.isinCart
-        })
-    }
+    
     render() {
-        const {title, plot, price, rating, stars,fav,isinCart} = this.props.movies;
+        const {movies, addstars, decstars,onClickFav,onClickAddtocart} = this.props
+        const {title, plot, price, rating, star,fav,isInCart} = this.props.movies;
         return (
             <div className="main">
 
@@ -67,7 +35,7 @@ export default class MovieCard extends React.Component {
                                 <img className="str-btn"
                                     alt="Decrease"
                                     src="https://cdn-icons-png.flaticon.com/128/2801/2801932.png"
-                                    onClick={this.decstars}
+                                    onClick={() => {decstars(movies)}}
                                 />
                                 <img className="stars"
                                     alt="stars"
@@ -76,13 +44,13 @@ export default class MovieCard extends React.Component {
                                 <img className="str-btn"
                                     alt="increase"
                                     src="https://cdn-icons-png.flaticon.com/128/2997/2997933.png"
-                                    onClick={this.addstars}
+                                    onClick={() => {addstars(movies)}}
                                 />
-                                <span className="starCount">{stars}</span>
+                                <span className="starCount">{star}</span>
                             </div>
 
-                            <button className={fav?"favourite-btn":"unfavourite-btn"} onClick={this.handleFav}>{fav?"favourite":"unfavourite"}</button>
-                            <button className={isinCart?"unfavourite-btn":"cart-btn"} onClick={this.handlecart}>{isinCart?"apply":"is card"}</button>
+                            <button className={fav?"favourite-btn":"unfavourite-btn"} onClick={() => onClickFav(movies)}>{fav?"favourite":"unfavourite"}</button>
+                            <button className={isInCart?"unfavourite-btn":"cart-btn"} onClick={() => onClickAddtocart(movies)}>{isInCart?"apply":"is card"}</button>
 
                         </div>
                     </div>
